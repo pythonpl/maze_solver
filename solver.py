@@ -187,6 +187,7 @@ def main():
     filename = (sys.argv[1]).rsplit('.', 1)[0]
     im.save(filename+"_solved.png")
 
-main()
+if __name__ == '__main__':
+    main()
 
 
