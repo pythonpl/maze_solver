@@ -1,6 +1,12 @@
+###########################################################################################################
+# arguments:
+# python solver.py arg1
+# arg1 - maze filename. The result will be printed in a new file filename_solved.png
+###########################################################################################################
+
 from PIL import Image 
 from enum import Enum
-import numpy 
+import numpy, sys 
 
 COLOR_BLACK = numpy.array([0, 0, 0, 255])
 COLOR_WHITE = numpy.array([255, 255, 255, 255])
@@ -134,7 +140,11 @@ def main():
     startTile = None
     endTile = None
 
-    img = Image.open("test.png") 
+    try:
+        img = Image.open(sys.argv[1]) 
+    except:
+        print(f"[ERROR!] Not a valid image found in file: {sys.argv[1]}")
+        return
     np_img = numpy.array(img) 
 
     for row in np_img:
@@ -173,9 +183,9 @@ def main():
             np_img[node[1]][node[0]] = COLOR_BLUE
             print(node)
     im = Image.fromarray(np_img)
-    im.save("test_solved.png")
 
-
+    filename = (sys.argv[1]).rsplit('.', 1)[0]
+    im.save(filename+"_solved.png")
 
 main()
 
